@@ -4,58 +4,30 @@ define([
 	'jquery',
 	'underscore',
 	'backbone',
-	'app/collections/list-collection',
-	'app/views/list/list-item-view',
-	'text!app/templates/sidebar.html'
-], function( $, _, Backbone, ListCollection, ListItemView, SidebarTemplate ) {
+	'app/views/list',
+	'app/views/sidebar'
+], function( $, _, Backbone, ListView, SidebarView ) {
 
 	var AppView = Backbone.View.extend({
 		
-		template: _.template( SidebarTemplate ),
-
 		initialize: function() {
-			this.listenTo( this.collection, 'add', this.addList );	
-			this.collection.fetch();
-		},
-
-		events: { 
-			'keypress .add-list' : 'addListOnEnter'
-		},
-		
-		// Render sidebar and add stored lists
-		render: function() {
-			this.$el.html( this.template() );
-			this.addLists();	
-		},
-
-		addList: function( listModel ) {
-			// Refactor this
-			listModel.save();
-			var list_view = new ListItemView( { model: listModel } );
+			// Event listeners
+			Backbone.on( 'app:index', this.appIndex, this );
+			Backbone.on( 'show:list', this.showList, this );		
 			
-			this.$('#all-lists').append( list_view.render().el );
+			// Primary placeholders
+			this.sidebar = "#sidebar";
+			this.main = "#main";  
 		},
-		
-		addLists: function() {
-			this.$('#all-lists').html('');
-			this.collection.each( this.addList, this );
-			return this;
+		// Render the application sidebar
+		appIndex: function() {
+			var sidebar_view = new SidebarView( { el: $( this.sidebar ), collection: this.collection } );
+			sidebar_view.render();
 		},
-		
-		addListOnEnter: function( e ) {
-			
-			if( e.keyCode === 13 ) {
-				this.submitInput();
-				return false;
-			} else {
-				return;
-			}
-		},
-		
-		submitInput: function() {
-			var list_title = this.$('.add-list').val();
-			this.collection.create({ title: list_title });
-			this.$('.add-list').val('');
+		// When 'show:list' is triggered, render ListView
+		showList: function( listModel ) {
+			var list_view = new ListView({ el: $( this.main ), model: listModel });
+			list_view.render();
 		}
 		
 	});

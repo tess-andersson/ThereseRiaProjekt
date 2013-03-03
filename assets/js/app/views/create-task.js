@@ -1,21 +1,23 @@
 // ### CreateTaskView
-// _Rendering simple form for adding task_
+// _Rendering form for adding tasks_
 define([
 	'jquery',
 	'underscore',
 	'backbone',
+	'app/models/task',
 	'text!app/templates/create-task.html',
-	'app/models/task'
-], function( $, _, Backbone, TaskTemplate, TaskModel ) {
+], function( $, _, Backbone, TaskModel, CreateTaskTemplate ) {
 
 	var CreateTaskView = Backbone.View.extend({
-
+		// Render each item within a div
 		tagName: 'div',
 		className: 'row create-task',
 
-		template: _.template( TaskTemplate ),
+		template: _.template( CreateTaskTemplate ),
 
+		// Constructor
 		initialize: function() { 
+			this.list_model = this.model;
 			this.task = new TaskModel();
 		},
 
@@ -25,21 +27,19 @@ define([
 		},
 
 		render: function() {
-			this.$el.html( this.template( this.model.toJSON() ) );
+			this.$el.html( this.template() );
 			return this;
 		},
 		
+		// Creates a task and trigger add-event on model
 		createTask: function() {
 			this.task.set( 'content', this.$('.task-content').val() );
-			this.saveTask();
+			this.list_model.trigger( 'add:task', this.task );
 		},
 		
-		saveTask: function() {
-			this.model.trigger( 'add:task', this.task );
-		},
-		
+		// Function for canceling adding task
 		cancelCreate: function() {
-			this.$el.remove();
+			this.remove();
 		}
 
 	});

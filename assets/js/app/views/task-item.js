@@ -1,15 +1,13 @@
-// ### TaskView
-// _Display all tasks for one list_
+// ### TaskItemView
+// _Display one task item_
 define([
 	'jquery',
 	'underscore',
 	'backbone',
-	'app/models/task',
-	'app/collections/task-collection',
 	'text!app/templates/tasks.html'
-], function( $, _, Backbone, TaskModel, TaskCollection, TaskTemplate ) {
-
-	var TaskView = Backbone.View.extend({
+], function( $, _, Backbone, TaskTemplate ) {
+	
+	var TaskItemView = Backbone.View.extend({
 
 		tagName: 'div',
 		className: 'row task-item',
@@ -17,6 +15,8 @@ define([
 		template: _.template( TaskTemplate ),
 
 		initialize: function() { 
+			
+			// Listen to changes on model
 			this.listenTo( this.model, 'add', this.render );
 			this.listenTo( this.model, 'change', this.render );
 			
@@ -25,7 +25,7 @@ define([
 		},
 		
 		events: {
-			'change #complete' : 'toggleComplete',
+			'change #complete' : 'toggleCompleted',
 			'click .delete-task' : 'deleteTask'
 		},
 
@@ -34,22 +34,26 @@ define([
 			return this;
 		},
 		
+		// Destroy model and save associated list model
 		deleteTask: function() {
-			this.list.get( 'tasks' ).get( this.model ).destroy();
+			this.model.destroy();
 			this.list.save();
 		},
 		
-		toggleComplete: function() {
+		// Function for toogling completed on task
+		// Todo: Maybe in model?
+		toggleCompleted: function() {
 			if( this.model.get( 'complete' ) === false ) {
 				this.model.set( 'complete', true );
+				
+				this.$('.task-container').addClass('complete');
 			} else {
 				this.model.set( 'complete', false );
 			}
 			
-			this.list.trigger( 'add:task', this.model );
-
+			this.list.save();
 		}
 	});
 
-	return TaskView;
+	return TaskItemView;
 });
