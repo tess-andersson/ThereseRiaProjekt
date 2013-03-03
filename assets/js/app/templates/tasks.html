@@ -1,12 +1,14 @@
-<div class="span1">
-	<input id="complete" type="checkbox" value="" <% if( complete === true ) { %>
-		checked="yes"
-	<% }%>/>
-</div>
-<div class="span8">
-	<%= content %> 
-</div>
-<div class="span3">
-	<a class="btn btn-link delete-task">Ta bort</a>
+<div class="task-container <% if (complete == true) { %> complete <% }%> ">
+	<div class="span1">
+		<input id="complete" type="checkbox" value="" <% if( complete === true ) { %>
+			checked="yes"
+		<% }%>/>
+	</div>
+	<div class="span8 task">
+		<%= content %> 
+	</div>
+	<div class="span3">
+		<a class="btn btn-link delete-task">Ta bort</a>
+	</div>
 </div>
 
