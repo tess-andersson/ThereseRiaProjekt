@@ -6,7 +6,8 @@ require.config({
 		backboneFull: 'lib/backbone/backbone',
 		localStorage: 'lib/backbone/backbone.localStorage',
 		backboneRelational: 'lib/backbone/backbone-relational',
-		text: 'lib/requirejs/text'
+		text: 'lib/requirejs/text',
+		bootstrap: 'lib/twitter-bootstrap/bootstrap.min',
 	},
 	shim: {
 		underscore: {
@@ -21,6 +22,9 @@ require.config({
 		},
 		backboneRelational: {
 		    deps: ['underscore', 'backboneFull']	
+		},
+		bootstrap: {
+			deps: ['jquery']
 		}
 	}
 });
