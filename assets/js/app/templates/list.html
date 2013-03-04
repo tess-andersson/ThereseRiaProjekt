@@ -1,13 +1,16 @@
-<div class="row">
+<div class="row" class="list-header">
 	<div class="span7">
 		<h2><%= list.title %></h2>
 	</div>
-	<div class="span5">
-		<div class="">
-			<button class="add-task btn btn-link"><i class="icon-plus"></i> Lägg till task</button>
+	<div class="span3 offset2">
+		<div class="add-task-btn">
+			<button class="add-task btn btn-info btn-block">Ny todo</button>
 		</div>
 	</div>
 </div>
 <div class="row">
-	<div class="span12" id="tasks"></div>
+	<table class="table table-striped">
+		<tbody id="tasks"></tbody>
+	</table>
 </div>
+<div class="task-form"></div>

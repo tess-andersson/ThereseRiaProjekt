@@ -18,6 +18,7 @@ define([
 			
 			validate: function( attrs ) { },
 			
+			// Define the relationship between app models
 			relations: [{
 				type: Backbone.HasMany,
 				relatedModel: TaskModel,

@@ -8,9 +8,9 @@ define([
 ], function( $, _, Backbone, TaskTemplate ) {
 	
 	var TaskItemView = Backbone.View.extend({
-
-		tagName: 'div',
-		className: 'row task-item',
+		// Todo tasks is displayed in a table
+		tagName: 'tr',
+		className: 'task-item',
 
 		template: _.template( TaskTemplate ),
 
@@ -46,6 +46,7 @@ define([
 			if( this.model.get( 'complete' ) === false ) {
 				this.model.set( 'complete', true );
 				
+				// Toogle the css class too
 				this.$('.task-container').addClass('complete');
 			} else {
 				this.model.set( 'complete', false );

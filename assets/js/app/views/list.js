@@ -20,6 +20,8 @@ define([
 			// Get tasks for specific model
 			this.tasks = this.model.get( 'tasks' );
 			
+			this.create_form = ".create-task-form";
+			
 			// Listening to changes on tasks
 			this.listenTo( this.tasks, 'add', this.render );
 			this.listenTo( this.tasks, 'remove', this.render );	
@@ -45,13 +47,15 @@ define([
 		},
 	
 		// Create and render view for adding new tasks
-		addTask: function() {
-			if( $('.create-task') ) {
-				$('.create-task').remove();
-			}
+		addTask: function( e ) {			
+			e.preventDefault();
+			$(".task-form").html('');
 			
 			var create_task_view = new CreateTaskView( { model: this.model } );
-			this.$el.append( create_task_view.render().el );
+			$('.task-form').append( create_task_view.render().el );
+			
+			// Set focus to input field
+			$('.task-value').focus();
 		},
 		
 		unrender: function() {
