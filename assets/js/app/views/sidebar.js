@@ -16,6 +16,7 @@ define([
 			// Listen to changes to collection
 			this.listenTo( this.collection, 'add', this.addList );	
 			
+			// Fetch collections when initialized 
 			this.collection.fetch();
 		},
 		

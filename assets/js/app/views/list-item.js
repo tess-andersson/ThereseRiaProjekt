@@ -8,7 +8,7 @@ define([
 ], function( $, _, Backbone, ListItemTemplate ) {
 
 	var ListItemView = Backbone.View.extend({
-		// Display each item in list element
+		// Display each item in a list element
 		tagName: 'li',
 		className: 'list-item',
 
@@ -27,6 +27,7 @@ define([
 			this.$el.html( this.template( this.model.toJSON() ) );
 			return this;
 		},
+		
 		// When list-item is clicked, trigger 'show:list'
 		showList: function() {
 			Backbone.trigger("show:list", this.model);

@@ -26,7 +26,7 @@ define([
 		},
 		// When 'show:list' is triggered, render ListView
 		showList: function( listModel ) {
-			var list_view = new ListView({ el: $( this.main ), model: listModel });
+			var list_view = new ListView( { el: $( this.main ), model: listModel } );
 			list_view.render();
 		}
 		

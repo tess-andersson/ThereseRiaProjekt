@@ -9,6 +9,7 @@ define([
 		model: ListModel,
 		url: '/list',
 		
+		// Store collection in localStorage
 		localStorage: new Backbone.LocalStorage( 'Lists' ),
 		
 		initialize: function() { }

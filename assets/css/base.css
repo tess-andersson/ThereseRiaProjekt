@@ -5,6 +5,8 @@
     padding-top: 60px;
 }
 
+/* Sidebar */
+
 .delete-btn {
   float: right;
   display: none;
@@ -19,6 +21,25 @@
     display: inline;
 }
 
-.complete .task {
+/* Display of one list */
+
+.row.list-header { margin-bottom: 30px; }
+
+.add-task-btn {
+  margin-top: 20px;
+}
+
+.complete {
     text-decoration: line-through;
 }
+
+.task-value {
+  margin: 10px 10px 0px 0px;
+}
+
+ /* All Mobile Sizes (devices and browser) */
+ @media only screen and (max-width: 767px) {
+    #wrapper {
+      padding-top: 0px;
+    }     
+ }
