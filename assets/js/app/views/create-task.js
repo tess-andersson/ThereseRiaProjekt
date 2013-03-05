@@ -5,7 +5,7 @@ define([
 	'underscore',
 	'backbone',
 	'app/models/task',
-	'text!app/templates/create-task.html',
+	'text!app/templates/create-task.html'
 ], function( $, _, Backbone, TaskModel, CreateTaskTemplate ) {
 
 	var CreateTaskView = Backbone.View.extend({
@@ -24,6 +24,7 @@ define([
 		// Listen to events on form
 		events: {
 			'click #create-task-btn' : 'createTask',
+			'keypress #newTaskInput': 'createTask',
 			'click .cancel' : 'cancelCreate'
 		},
 
@@ -33,9 +34,12 @@ define([
 		},
 		
 		// Creates a task and trigger add-event on model
-		createTask: function() {
-			this.task.set( 'content', this.$('.task-value').val() );
-			this.list_model.trigger( 'add:task', this.task );
+		createTask: function( e ) {
+			console.log(e)
+			if ( e.keyCode && e.keyCode === 13 || !e.keyCode ) {
+				this.task.set( 'content', this.$('.task-value').val() );
+				this.list_model.trigger( 'add:task', this.task );
+			}
 		},
 		
 		// Function for canceling adding a todo
