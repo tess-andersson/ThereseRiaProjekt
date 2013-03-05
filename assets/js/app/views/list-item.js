@@ -1,4 +1,4 @@
-// ### ListItemView
+	// ### ListItemView
 // _Rendering one list item in sidebar_
 define([
 	'jquery',

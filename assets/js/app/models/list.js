@@ -16,7 +16,11 @@ define([
 				title: 'Ny lista'
 			},
 			
-			validate: function( attrs ) { },
+			validate: function( attrs ) {
+				if ( !attrs.title || !attrs.title.match(/\S/) ) {
+					return "You must enter a title";
+				};
+			},
 			
 			// Define the relationship between app models
 			relations: [{
