@@ -4,8 +4,9 @@ define([
 	'jquery',
 	'underscore',
 	'backbone',
-	'text!app/templates/tasks.html'
-], function( $, _, Backbone, TaskTemplate ) {
+	'text!app/templates/tasks.html',
+	'app/views/edit-task',
+], function( $, _, Backbone, TaskTemplate, EditTaskView ) {
 	
 	var TaskItemView = Backbone.View.extend({
 		// Todo tasks is displayed in a table
@@ -26,7 +27,8 @@ define([
 		
 		events: {
 			'change #complete' : 'toggleCompleted',
-			'click .delete-task' : 'deleteTask'
+			'click .delete-task' : 'deleteTask',
+			'click .edit-task' : 'editTask'
 		},
 
 		render: function() {
@@ -38,6 +40,18 @@ define([
 		deleteTask: function() {
 			this.model.destroy();
 			this.list.save();
+		},
+
+		// Display an edit form for the model
+		editTask: function( e ) {
+			e.preventDefault();
+			$(".task-form").html('');
+			
+			var edit_task_view = new EditTaskView( { model: this.model } );
+			$('.task-form').append( edit_task_view.render().el );
+			
+			// Set focus to input field
+			$('.task-value').focus();
 		},
 		
 		// Function for toogling completed on task
