@@ -19,8 +19,23 @@ define([
 		initialize: function() { 
 			this.list_model = this.model;
 			this.task = new TaskModel();
+
+			// Listens to validation errors on the task
+			this.listenTo(this.task, 'invalid', this.renderErrors, this);
 		},
 		
+		renderErrors: function( model, errors ) {
+			// Grab the control-group element
+			var controlGroup = this.$( '.control-group' );
+
+			// Add an error class to it, makin it sparkling red!
+			controlGroup.addClass( 'error' );
+
+			// Add the error message to the error container
+			// Currently only appending one message since the validation only returns one value
+			controlGroup.parent().find('#taskErrors').html( "<span class='help-inline'>" + errors + "</span>" );
+		},
+
 		// Listen to events on form
 		events: {
 			'click #create-task-btn' : 'createTask',
@@ -35,10 +50,14 @@ define([
 		
 		// Creates a task and trigger add-event on model
 		createTask: function( e ) {
-			console.log(e)
+			// Tries to set the model if the user clicked the button or pressed enter key
 			if ( e.keyCode && e.keyCode === 13 || !e.keyCode ) {
-				this.task.set( 'content', this.$('.task-value').val() );
-				this.list_model.trigger( 'add:task', this.task );
+
+				// The set method will return false if not set, also triggering the invalid event
+				// Else, the add:task is triggered
+				if ( this.task.set({ content: this.$('.task-value').val() }, { validate: true } )) {
+					this.list_model.trigger( 'add:task', this.task );
+				}
 			}
 		},
 		
