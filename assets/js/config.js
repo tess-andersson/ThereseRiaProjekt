@@ -1,3 +1,5 @@
+// ### Main application setup
+
 require.config({
 	paths: {
 		jquery: 'lib/jquery/jquery-1.9.1.min',
@@ -28,8 +30,19 @@ require.config({
 		}
 	}
 });
-require( ['app/app'], 
-	function( App ) {
-	    App.initialize();
+
+require( [
+	'jquery',
+	'backbone',
+	'app/views/app-view',
+	'app/collections/list-collection',
+	'bootstrap'
+], function( $, Backbone, AppView, ListCollection ) {
+		s// Create a new ListCollection
+	    var list_collection = new ListCollection();
+	    
+	    // Initialize and render a new AppView
+	    var app_view = new AppView( { collection: list_collection } );
+	    Backbone.trigger('app:index');
     }
 );
