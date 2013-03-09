@@ -38,7 +38,7 @@ require( [
 	'app/collections/list-collection',
 	'bootstrap'
 ], function( $, Backbone, AppView, ListCollection ) {
-		s// Create a new ListCollection
+		// Create a new ListCollection
 	    var list_collection = new ListCollection();
 	    
 	    // Initialize and render a new AppView
