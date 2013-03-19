@@ -29,8 +29,8 @@ define([
 
 		render: function() {
 			var data = {
-          todo: this.model.toJSON()
-        };
+				todo: this.model.toJSON()
+			};
 
 			this.$el.html( this.template(data) );
 			return this;
@@ -40,7 +40,11 @@ define([
 		editTask: function() {
 			this.model.set( 'content', this.$('.task-value').val() );
 			this.list_model.trigger( 'add:task', this.task );
-
+			Backbone.trigger('show:flashMessage', {
+				header: "Success!",
+				text: "Task was updated.",
+				type: Backbone.FLASH_TYPES.success
+			});
 			this.remove();
 		},
 		
