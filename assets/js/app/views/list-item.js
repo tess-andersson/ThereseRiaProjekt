@@ -38,6 +38,7 @@ define([
 			this.model.destroy();
 			this.remove();
 			Backbone.trigger("delete:list");
+			Backbone.trigger('show:flashMessage', { header: "Success!", text: "List was deleted.", type: Backbone.FLASH_TYPES.info });
 		},
 		
 		// Toggle delete button

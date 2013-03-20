@@ -6,7 +6,7 @@ define([
 	'backbone',
 	'app/views/task-item',
 	'app/views/create-task',
-	'text!app/templates/list.html',
+	'text!app/templates/list.html'
 ], function( $, _, Backbone, TaskItemView, CreateTaskView, ListTemplate ) {
 
 	var ListView = Backbone.View.extend({
@@ -31,15 +31,16 @@ define([
 		},
 
 		events: { 
-			'click .add-task' : 'addTask',
+			'click .add-task' : 'addTask'
 		},
 
 		render: function() {
+			var task_view;
 			this.$el.html( this.template( { list: this.model.toJSON() } ) );
 
 			// Loop through tasks and append to #tasks-div		
 			this.tasks.forEach( function( t ){
-				var task_view = new TaskItemView( { model: t } );
+				task_view = new TaskItemView( { model: t } );
 				$('#tasks').append( task_view.render().el );
 			});
 
@@ -47,11 +48,12 @@ define([
 		},
 	
 		// Create and render view for adding new tasks
-		addTask: function( e ) {			
+		addTask: function( e ) {
+			var create_task_view = new CreateTaskView( { model: this.model } );
+
 			e.preventDefault();
 			$(".task-form").html('');
 			
-			var create_task_view = new CreateTaskView( { model: this.model } );
 			$('.task-form').append( create_task_view.render().el );
 			
 			// Set focus to input field

@@ -43,7 +43,11 @@ define([
 					
 				// Add new list to collection
 				this.collection.create( { title: list_title } );
-				
+				Backbone.trigger('show:flashMessage', {
+					header: "Success!",
+					text: "A new list was created",
+					type: Backbone.FLASH_TYPES.success
+				});
 				// Empty form field
 				this.$('.add-list').val('');			
 				return false;			

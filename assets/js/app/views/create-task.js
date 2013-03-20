@@ -57,6 +57,11 @@ define([
 				// Else, the add:task is triggered
 				if ( this.task.set({ content: this.$('.task-value').val() }, { validate: true } )) {
 					this.list_model.trigger( 'add:task', this.task );
+					Backbone.trigger('show:flashMessage', {
+						header: "Success!",
+						text: "Task was created.",
+						type: Backbone.FLASH_TYPES.success
+					});
 				}
 			}
 		},

@@ -40,7 +40,14 @@ require( [
 ], function( $, Backbone, AppView, ListCollection ) {
 		// Create a new ListCollection
 	    var list_collection = new ListCollection();
-	    
+		// Flash types is for defining what type of flash to display,
+		// They are global in Backbone and can be uses: Backbone.FLASH_TYPES.success|warning|info|error
+	    Backbone.FLASH_TYPES = {
+			success: "success",
+			warning: "warning",
+			info: "info",
+			error: "error"
+		};
 	    // Initialize and render a new AppView
 	    var app_view = new AppView( { collection: list_collection } );
 	    Backbone.trigger('app:index');

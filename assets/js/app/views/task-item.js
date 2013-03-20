@@ -5,7 +5,7 @@ define([
 	'underscore',
 	'backbone',
 	'text!app/templates/tasks.html',
-	'app/views/edit-task',
+	'app/views/edit-task'
 ], function( $, _, Backbone, TaskTemplate, EditTaskView ) {
 	
 	var TaskItemView = Backbone.View.extend({
@@ -40,6 +40,12 @@ define([
 		deleteTask: function() {
 			this.model.destroy();
 			this.list.save();
+			console.log("hej");
+			Backbone.trigger('show:flashMessage', {
+				header: "Hey!",
+				text: "You deleted a task.",
+				type: Backbone.FLASH_TYPES.info
+			});
 		},
 
 		// Display an edit form for the model
